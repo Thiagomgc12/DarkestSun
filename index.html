@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darkest Sun — A Era de Lilith</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=GFS+Didot&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0a08; --panel:#15110d; --ink:#E9E1D0; --soft:#C9BFA8;
+    --gold:#C9A24B; --gold2:#E6C879; --oxblood:#8C2B3A; --muted:#9A8E76; --line:#312818;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  body{font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.6;}
+  a{color:var(--gold2);}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 22px 60px;}
+  .top{ text-align:center; padding:32px 0 12px; }
+  .top .t{ font-family:'Cinzel',serif;font-weight:700;font-size:40px;letter-spacing:.14em;color:var(--gold);margin:8px 0 0;text-shadow:0 0 24px rgba(201,162,75,.18); }
+  .top .s{ font-family:'Cinzel',serif;font-weight:500;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin:10px 0 0; }
+  .top .gr{ font-family:'GFS Didot',serif;font-size:17px;color:var(--gold2);margin-top:10px;display:block; }
+  .top .tr{ font-style:italic;font-size:13px;color:var(--muted); }
+  nav{ position:sticky;top:0;z-index:10;background:var(--bg);display:flex;flex-wrap:wrap;justify-content:center;gap:4px;padding:12px 0 14px;border-bottom:1px solid var(--line);margin-bottom:6px;}
+  .tabbtn{ font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);background:transparent;border:1px solid transparent;border-radius:3px;padding:6px 11px;cursor:pointer;transition:.15s;}
+  .tabbtn:hover{ color:var(--gold2);border-color:var(--line); }
+  .tabbtn.active{ color:var(--gold);border-color:var(--gold); }
+  .sep{ width:1px;background:var(--line);margin:2px 4px; }
+  .tab{ display:none; animation:fade .35s ease; }
+  .tab.active{ display:block; }
+  @keyframes fade{ from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:none;} }
+  h2{ font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:1.6em 0 .5em;padding-bottom:.3em;border-bottom:1px solid var(--line); }
+  h3{ font-family:'Cinzel',serif;font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);margin:1.2em 0 .3em; }
+  p{ margin:0 0 .75em; }
+  .lead::first-letter{ float:left;font-family:'Cinzel',serif;font-weight:700;font-size:3.3em;line-height:.8;padding:.04em .12em 0 0;color:var(--gold); }
+  .epi{ text-align:center;margin:1em 0; }
+  .epi .gr{ font-family:'GFS Didot',serif;font-size:19px;color:var(--gold2); }
+  .epi .tr{ display:block;font-style:italic;font-size:13px;color:var(--muted);margin-top:.1em; }
+  .open{ font-style:italic;color:var(--soft);border-left:2px solid var(--gold);padding:.2em 0 .2em 1em;margin:1em 0; }
+  .note{ font-size:14.5px;color:var(--muted); }
+  ul.clean{ list-style:none;padding:0;margin:.3em 0 1em; }
+  ul.clean li{ position:relative;padding-left:1.2em;margin:.28em 0; }
+  ul.clean li::before{ content:"\269C";position:absolute;left:0;color:var(--gold);font-size:.8em;top:.18em; }
+  .card{ background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:13px 17px;margin:1em 0; }
+  .card.gold{ border-color:rgba(201,162,75,.4); }
+  table{ width:100%;border-collapse:collapse;margin:.7em 0 1.2em;font-size:14px; }
+  th,td{ text-align:left;padding:6px 9px;border-bottom:1px solid var(--line);vertical-align:top; }
+  th{ font-family:'Cinzel',serif;font-weight:600;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold); }
+  tr:hover td{ background:rgba(201,162,75,.04); }
+  .num{ color:var(--gold2);font-variant-numeric:tabular-nums;text-align:center; }
+  .tag{ font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.02em;background:rgba(201,162,75,.12);border:1px solid var(--line);border-radius:2px;padding:1px 5px;color:var(--gold2);white-space:nowrap; }
+  .move{ margin:.65em 0; }
+  .move .mn{ font-family:'Cinzel',serif;font-weight:600;color:var(--gold2);font-size:14px; }
+  .move .atr{ font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:1px 6px;margin-left:.35em; }
+  .move.sig{ border-left:2px solid var(--gold);padding-left:.6em; }
+  .move p{ margin:.15em 0 0;font-size:14.5px;line-height:1.4; }
+  .star{ color:var(--gold); }
+  .classhead{ font-family:'Cinzel',serif;font-weight:700;font-size:26px;letter-spacing:.07em;color:var(--gold);margin:.2em 0 0; }
+  .classsub{ font-style:italic;color:var(--soft);margin:.15em 0 1em; }
+  .foot{ text-align:center;color:var(--muted);font-style:italic;font-size:13px;border-top:1px solid var(--line);margin-top:30px;padding-top:14px; }
+  .exp{ display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:3px 9px;margin:3px;font-size:14px; }
+  .exp.q{ font-style:italic;color:var(--soft);border-color:rgba(201,162,75,.3); }
+  @media(max-width:640px){
+    body{ font-size:16px; }
+    .wrap{ padding:0 14px 50px; }
+    .top{ padding:24px 0 10px; }
+    .top .t{ font-size:27px; letter-spacing:.08em; }
+    .top .s{ font-size:9.5px; letter-spacing:.2em; }
+    .top .gr{ font-size:15px; }
+    nav{ flex-wrap:nowrap; justify-content:flex-start; overflow-x:auto; overflow-y:hidden;
+         -webkit-overflow-scrolling:touch; scrollbar-width:none; gap:2px; padding:8px 2px; }
+    nav::-webkit-scrollbar{ display:none; }
+    .tabbtn{ flex:0 0 auto; padding:8px 13px; font-size:11px; }
+    .sep{ flex:0 0 auto; }
+    h2{ font-size:13px; margin-top:1.3em; }
+    h3{ font-size:11.5px; }
+    .classhead{ font-size:22px; }
+    .lead::first-letter{ font-size:3em; }
+    .ctab{ display:block; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; }
+    table{ font-size:13px; }
+    th,td{ padding:6px 8px; }
+    .card{ padding:11px 14px; }
+    .move p{ font-size:14.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <svg viewBox="0 0 100 100" width="64" height="64" aria-hidden="true">
+      <circle cx="50" cy="50" r="33" fill="none" stroke="#C9A24B" stroke-width="3.5" stroke-dasharray="1.5 7.5"/>
+      <circle cx="50" cy="50" r="20" fill="#0c0a08" stroke="#C9A24B" stroke-width="1.2"/>
+    </svg>
+    <h1 class="t">Darkest Sun</h1>
+    <p class="s">A Era de Lilith · O Crepúsculo de Empyros</p>
+    <span class="gr"> &#8001; &#7969;&#955;&#953;&#959;&#962; &#956;&#941;&#955;&#945;&#962;, &#8001; &#959;&#8016;&#961;&#945;&#957;&#8056;&#962; &#963;&#953;&#969;&#960;&#8119;</span>
+    <span class="tr">o sol é negro; o céu silencia</span>
+  </div>
+
+  <nav id="nav">
+    <button class="tabbtn active" onclick="show('mito',this)">O Mito</button>
+    <button class="tabbtn" onclick="show('jogo',this)">O Jogo</button>
+    <button class="tabbtn" onclick="show('racas',this)">As Raças</button>
+    <button class="tabbtn" onclick="show('exp',this)">Experiências</button>
+    <button class="tabbtn" onclick="show('criacao',this)">Criação</button>
+    <span class="sep"></span>
+    <button class="tabbtn" onclick="show('adepto',this)">Adepto</button>
+    <button class="tabbtn" onclick="show('amado',this)">Amado</button>
+    <button class="tabbtn" onclick="show('capuz',this)">Capuz Negro</button>
+    <button class="tabbtn" onclick="show('sangrador',this)">Sangrador</button>
+    <button class="tabbtn" onclick="show('coroa',this)">Coroa</button>
+    <button class="tabbtn" onclick="show('manopla',this)">Manopla</button>
+    <button class="tabbtn" onclick="show('bruxa',this)">Bruxa</button>
+    <button class="tabbtn" onclick="show('lira',this)">Lira</button>
+    <button class="tabbtn" onclick="show('algoz',this)">Algoz</button>
+    <button class="tabbtn" onclick="show('espora',this)">Espora</button>
+    <button class="tabbtn" onclick="show('voz',this)">Voz</button>
+  </nav>
+
+  <!-- ===== MITO ===== -->
+  <section id="mito" class="tab active">
+    <div class="open">Acende-se uma vela e diz-se em voz baixa, porque algumas histórias não suportam a luz: houve um tempo em que o sol nascia. E houve um tempo em que parou.</div>
+    <p class="lead">No princípio, o céu ardia. Os deuses eram muitos e respondiam, e a luz caía sobre a velha Empyros como uma bênção que ninguém pensava em agradecer. Disso não restou memória viva — apenas a forma de uma saudade, e o nome de uma mulher que veio do escuro.</p>
+    <h2>A Longa Ira</h2>
+    <p>Por mil anos <strong>Lilith</strong> guerreou contra as raças e os povos antigos. Não foi uma guerra de exércitos, mas de paciência: ela esperou enquanto os deuses bons, presos ao sol, eram exterminados com seus fiéis. Quando só restavam cinzas e ossos, ela não deu o golpe final. Ela <em>escutou</em>.</p>
+    <h2>O Pacto</h2>
+    <div class="epi"><span class="gr">&#964;&#8048; &#967;&#949;&#943;&#955;&#951; &#8165;&#945;&#960;&#964;&#940;</span><span class="tr">os lábios costurados</span></div>
+    <p>À mesa do fim sentaram-se poucos — as linhagens que sobreviveram, hoje lembradas no nome dos sumos sacerdotes, de Thalindra à última. O preço que pagaram foi selado atrás de lábios costurados com agulha de osso e linho preto. Lilith recolheu-se ao subsolo; os humanos receberam a superfície e a permissão de continuar existindo. Foi o bastante para chamar de paz.</p>
+    <h2>O Sol Negro</h2>
+    <p>Então ela cobriu o sol. Onde havia dia, ficou um disco negro coroado de fogo, e dezoito horas de noite para cada seis de penumbra. O <strong>Sol Negro</strong> é o selo físico do pacto, pregado no céu para que ninguém esqueça.</p>
+    <h2>A Elipse</h2>
+    <div class="epi"><span class="gr">&#7969; &#7964;&#955;&#955;&#949;&#953;&#968;&#953;&#962; &#7952;&#957;&#949;&#948;&#961;&#949;&#973;&#949;&#953;</span><span class="tr">a Elipse espreita</span></div>
+    <p>Lilith engoliu todo o aether do mundo. A magia, agora, é só dela — e o eco do seu poder caminha entre os vivos como <strong>A Elipse</strong>: uma coisa de vontade própria, presa pela coleira da Mãe, que ronda todos os lugares sem ser vista. Conjurar é pedir emprestado a Ela. E Ela cobra.</p>
+    <h2>Os Filhos</h2>
+    <p>Da Mãe vieram dois sangues. Os <strong>Lith</strong>, marcados na carne, que caminham disfarçados entre os humanos — fortes na exata medida em que são monstruosos, e amaldiçoados com uma solidão que os impede de se unirem. E os <strong>Agrios</strong>, os filhos selvagens dos ermos: brilhantes e impulsivos, que aprendem a caçar e esperam, pacientes, à beira das estradas.</p>
+    <h2>Tha, o Sem Rosto</h2>
+    <div class="epi"><span class="gr">&#952;&#949;&#8056;&#962; &#7936;&#960;&#961;&#972;&#963;&#969;&#960;&#959;&#962;</span><span class="tr">o deus sem rosto</span></div>
+    <p>Contra a Mãe, os humanos ergueram <strong>Tha</strong> — o Deus-das-Muitas-Formas, que talvez não seja deus algum, mas a própria força da espécie tornada ídolo. Sua Igreja governa, ensina e julga — e sabe, em seus altos escalões, que o silêncio do céu é obra de Lilith. Sabe, e cala: cúmplice, não vítima.</p>
+    <h2>O Mundo Agora</h2>
+    <p>O que sobra é <strong>Santa Thalindra</strong> e um punhado de redutos, ilhas de fogo num continente em ruínas. Mantém-se a pira acesa, sob pena de sacrilégio; luta-se, todo dia, pela Raiz-de-Prata que acalma a loucura e pelo minério que alimenta as chamas. Não há um relógio do fim — o fim é o próprio girar da fome humana por poder. Sob o Sol Negro, todo triunfo é uma prorrogação.</p>
+  </section>
+
+  <!-- ===== JOGO ===== -->
+  <section id="jogo" class="tab">
+    <p class="lead">Darkest Sun roda sobre duas fichas. A primeira resolve quem você é no mundo — intriga, fé, lábia, magia. A segunda resolve a violência. Elas conversam, mas têm motores próprios.</p>
+    <h2>A Ficha Social — a rolagem</h2>
+    <p>Quando uma ação está em jogo, role <strong>1d6 de Esperança + 1d6 de Medo, com &#8722;1 + a característica</strong>.</p>
+    <table>
+      <tr><th>Resultado</th><th>Soma</th><th>O que acontece</th></tr>
+      <tr><td style="color:var(--gold2)">Pleno</td><td class="num">10+</td><td>você consegue o que quer, limpo</td></tr>
+      <tr><td style="color:var(--gold2)">Com custo</td><td class="num">7&#8211;9</td><td>consegue, mas com preço ou complicação</td></tr>
+      <tr><td style="color:var(--oxblood)">Falha</td><td class="num">6&#8722;</td><td>não consegue, e o Mestre faz uma jogada dura</td></tr>
+    </table>
+    <p>Os dados dão o token: Esperança maior &#8594; você ganha 1 Esperança; Medo maior &#8594; o Mestre ganha 1 Medo. Dados iguais com soma &#8805;7 = crítico (10+ limpo, +1 Esperança, limpa 1 Estresse, +1 adiante).</p>
+    <h3>As cinco características</h3>
+    <ul class="clean">
+      <li><strong>Têmpera</strong> — frieza, compostura, furtividade, aguentar o terror.</li>
+      <li><strong>Ímpeto</strong> — violência, intimidação, comandar pela força.</li>
+      <li><strong>Versúcia</strong> — charme, lábia, manipular pelo desejo ou pelo medo.</li>
+      <li><strong>Dissímulo</strong> — astúcia, perceber, ler pessoas e situações, esconder a intenção.</li>
+      <li><strong>Arcano</strong> — a sintonia com a Elipse; conjurar, a um custo terrível.</li>
+    </ul>
+    <h3>Recursos &amp; termos</h3>
+    <ul class="clean">
+      <li><strong>Esperança</strong> (teto 6) — gaste 2:1 (até +3) onde uma Experiência couber.</li>
+      <li><strong>Medo</strong> — moeda do Mestre. Toda magia lhe entrega 1.</li>
+      <li><strong>Estresse</strong> — desgaste mental e mágico; marque para conjurar e ativar habilidades. (O "s Dano" do original vira 1 Estresse.)</li>
+      <li><strong>Dano</strong> — 5 caixas; cheia = morte. <strong>Debilidades</strong> (Abalado, Enfraquecido, Hesitante, Turvo) dão &#8722;1 num atributo para ignorar o Dano de um golpe.</li>
+      <li><strong>Honra</strong> — peso político; gasta nos movimentos de Honra. <strong>Escambo</strong> — sobrevivência bruta.</li>
+      <li><strong>Reserva</strong> (hold), <strong>+1 adiante</strong> (próxima rolagem), <strong>+1 contínuo</strong> (enquanto durar) — modificadores miúdos.</li>
+      <li><strong>Fartura / Carência</strong> — o que um grupo (milícia, feudo, seguidores) rende, e o que lhe falta.</li>
+    </ul>
+    <h2>A Ficha de Combate</h2>
+    <p>Stats próprios, pré-montados por classe, que ecoam os sociais:</p>
+    <table>
+      <tr><th>Stat</th><th>Rege</th><th>Eco social</th></tr>
+      <tr><td><strong>Sangue</strong></td><td>Vida (6&#8211;12)</td><td>Têmpera</td></tr>
+      <tr><td><strong>Tino</strong></td><td>modificador de ataque</td><td>Dissímulo</td></tr>
+      <tr><td><strong>Cal</strong></td><td>Defesa &#8594; Dureza 6/7/8/9</td><td>Ímpeto</td></tr>
+      <tr><td><strong>Graça</strong></td><td>esquiva (defesa ativa)</td><td>Versúcia</td></tr>
+      <tr><td><strong>Celere</strong></td><td>iniciativa + movimento</td><td>Arcano</td></tr>
+    </table>
+    <p>Ataque: <strong>1d6 Esperança + 1d6 Medo + Tino</strong>, acerta se &#8805; Dureza do alvo. Sem &#8722;1 no combate. Dano = dado da arma + tags. A magia mira com Arcano. Iniciativa por Celere; no turno, 1 movimento de posição + 1 ação (atacar, Esquivar, ou manobra: Desarmar/Empurrar/Proteger). Defesa ativa: gaste a ação de Esquivar para somar 1d6+Graça à Dureza.</p>
+  </section>
+
+  <!-- ===== RAÇAS ===== -->
+  <section id="racas" class="tab">
+    <p class="lead">Só dois sangues caminham pela superfície de Empyros: o humano, que herdou o mundo e nenhuma magia, e o Lith, que herdou a magia e nenhum lar.</p>
+    <h2>Humano</h2>
+    <p>A única raça da superfície. Sem aether próprio, compensa com número, engenho e a teia social que o sustenta — facções, dívidas, a Igreja de Tha.</p>
+    <ul class="clean">
+      <li><strong>Engenhosidade:</strong> comece com 3 Experiências em vez de 2.</li>
+      <li><strong>Sem aether próprio:</strong> não pode rolar Arcano sem um Lith encoleirado. É por isso que o Adepto humano prende um Lith.</li>
+      <li><strong>Filho de Tha:</strong> +1 Honra inicial; transita na teocracia sem suspeita.</li>
+    </ul>
+    <p class="note"><strong>Movimentos que combinam:</strong> os marciais e sociais (Coroa, Manopla, Voz, Lira). <strong>Experiências:</strong> Engenhosidade humana, Devoto de Tha, Filho das ruas, Negociador.</p>
+    <h2>Lith</h2>
+    <div class="epi"><span class="gr">&#924;&#942;&#964;&#951;&#961; &#7952;&#957; &#963;&#954;&#972;&#964;&#949;&#953;</span><span class="tr">a Mãe, na escuridão</span></div>
+    <p>Portador da mácula de Lilith. O aether pulsa em sua carne — quanto mais visíveis as feições, mais forte e mais caçado. Amaldiçoado com a solidão, não pode se unir aos seus.</p>
+    <ul class="clean">
+      <li><strong>Sangue de Lilith:</strong> pode rolar Arcano sem coleira; começa com um movimento arcano à escolha.</li>
+      <li><strong>A Marca</strong> (escolha): Oculta (passa por humano; aether fraco) · Discreta · Revelada (+1 Arcano, mas terror, denúncia e caça).</li>
+      <li><strong>Sede:</strong> quando alguém sofre Dano perto de você, recupere 1 Estresse (1x por cena).</li>
+      <li><strong>Lobo solitário:</strong> não pode Invocar uma Facção; sua Honra custa mais caro.</li>
+    </ul>
+    <p class="note"><strong>Movimentos que combinam:</strong> os arcanos (Adepto, Bruxa). <strong>Experiências:</strong> Sangue de Lilith, Feições reveladas, Eco arcano, Conhecedor dos Agrios.</p>
+  </section>
+
+  <!-- ===== EXPERIÊNCIAS ===== -->
+  <section id="exp" class="tab">
+    <p class="lead">Uma Experiência é um domínio nomeado. Nas rolagens em que ela couber na ficção, você pode gastar Esperança (2:1, até +3). Comece com 2 (humanos, 3) — destas ou inventadas. Servem a qualquer classe; algumas são só um nome, outras uma frase que já conta uma história.</p>
+    <h3>Lâmina &amp; guerra</h3>
+    <p><span class="exp">Duelista</span><span class="exp">Bruto</span><span class="exp">Veterano de mil batalhas</span><span class="exp">Esgrima de salão</span><span class="exp">Tático de campo</span><span class="exp">Líder nato</span><span class="exp q">"Eu já matei coisas piores que você"</span><span class="exp q">"Eles morreriam por mim"</span></p>
+    <h3>Sombra &amp; submundo</h3>
+    <p><span class="exp">Filho das ruas</span><span class="exp">Mão leve</span><span class="exp">Contrabandista</span><span class="exp">Trapaceiro nato</span><span class="exp">Veneno e sussurro</span><span class="exp q">"Conheço cada beco desta cidade"</span><span class="exp q">"Cresci entre os que a Igreja despreza"</span></p>
+    <h3>Corte &amp; lábia</h3>
+    <p><span class="exp">Língua de prata</span><span class="exp">Mentira</span><span class="exp">Negociador</span><span class="exp">Intimidador</span><span class="exp">Etiqueta de corte</span><span class="exp">Olho clínico</span><span class="exp q">"Sempre sei o que dizer"</span><span class="exp q">"Já fui rico; sei o gosto de perder tudo"</span></p>
+    <h3>Ermos &amp; sobrevivência</h3>
+    <p><span class="exp">Batedor</span><span class="exp">Caçador</span><span class="exp">Cavaleiro</span><span class="exp">Sobrevivente das estradas</span><span class="exp">Conhecedor dos Agrios</span><span class="exp">Cartógrafo dos ermos</span><span class="exp q">"A noite de dezoito horas não me assusta"</span><span class="exp q">"Eu sobrevivi quando ninguém mais sobreviveu"</span></p>
+    <h3>Elipse &amp; fé</h3>
+    <p><span class="exp">Erudito da Elipse</span><span class="exp">Ritualista</span><span class="exp">Sangue de Lilith</span><span class="exp">Feições reveladas</span><span class="exp">Devoto de Tha</span><span class="exp">Eco arcano</span><span class="exp q">"Já ouvi a Mãe sussurrar meu nome"</span><span class="exp q">"Há fogo onde deveria haver compaixão"</span></p>
+    <h3>Ofício &amp; saber</h3>
+    <p><span class="exp">Anatomia profana</span><span class="exp">Boticário</span><span class="exp">Ferreiro</span><span class="exp">Sábio</span><span class="exp">Línguas mortas</span><span class="exp">Engenhosidade humana</span><span class="exp q">"Conserto o que os outros desistem de consertar"</span></p>
+  </section>
+
+  <!-- ===== CRIAÇÃO ===== -->
+  <section id="criacao" class="tab">
+    <p class="lead">Montar um personagem em Darkest Sun é montar duas fichas que se espelham. Siga os passos — e lembre que tudo aqui se paga em sangue, fogo ou silêncio.</p>
+    <div class="card gold">
+      <h3>1 · Raça</h3><p>Humano (3 Experiências, sem aether próprio, +1 Honra) ou Lith (Arcano nativo, a Marca, a Sede, sem facções).</p>
+      <h3>2 · Classe</h3><p>Escolha sua cartilha entre as onze. Ela define movimentos, subsistema e arrays.</p>
+      <h3>3 · Características sociais</h3><p>Escolha um dos conjuntos da classe. Toda rolagem parte de &#8722;1.</p>
+      <h3>4 · Array de combate</h3><p>Escolha um dos quatro da classe, respeitando os pré-requisitos sociais.</p>
+      <h3>5 · Experiências</h3><p>Escolha 2 (humanos, 3) — da aba Experiências ou inventadas.</p>
+      <h3>6 · Movimentos</h3><p>Todos os básicos + o assinatura da classe + os que ela permitir escolher.</p>
+      <h3>7 · Recursos iniciais</h3><p>Esperança 0 (teto 6) · Honra da classe · Escambo · Estresse zerado · Vida = Sangue.</p>
+      <h3>8 · Teia social</h3><p>2 Relações · uma Facção (Lith não tem) · o Entrelaçamento do Mestre · Patrono, se houver.</p>
+      <h3>9 · Equipe-se</h3><p>Escolha a arma (dado + tags) e descreva-a.</p>
+    </div>
+  </section>
+
+  <!-- ===== ADEPTO ===== -->
+  <section id="adepto" class="tab">
+    <h1 class="classhead">O Adepto</h1><p class="classsub">a história que os pais contam para assustar as crianças</p>
+    <p class="open">Há segredos lá fora, vastos e poderosos. Saber que poucos detêm e que menos ainda dominam. Seu poder pode brandir esses segredos como uma espada. Você pode criar com esse poder, e destruir com a mesma facilidade. As pessoas sabem disso. Respeitam isso. Temem isso. Você é a história que os pais usam para assustar os filhos quando os põem na cama à noite — ou aquilo que secretamente esperam que essas crianças se tornem quando crescerem. Você é um dos Adeptos.</p>
+    <p class="note">No Sol Negro, nenhum humano nasce com magia: o Adepto humano canaliza a Elipse através de um <strong>Lith encoleirado</strong>. Um Adepto que seja, ele próprio, um Lith dispensa a coleira.</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo de outro mundo, simples, despretensioso: Tempestade, Mattius, Vereda, Sevem, Oxus, Zelo, Corvo, Thereza, Vlad, O Estranho, O Velho, Fecho.</p>
+      <h3>Atributos (escolha 1)</h3>
+      <p class="note">① Têmpera +1 · Ímpeto +1 · Versúcia &#8722;2 · Dissímulo +1 · <strong>Arcano +2</strong><br>② Têmpera 0 · Ímpeto 0 · Versúcia +1 · Dissímulo 0 · <strong>Arcano +2</strong><br>③ Têmpera +1 · Ímpeto &#8722;2 · Versúcia 0 · Dissímulo +2 · <strong>Arcano +2</strong><br>④ Têmpera +2 · Ímpeto &#8722;1 · Versúcia &#8722;1 · Dissímulo +1 · <strong>Arcano +2</strong></p>
+      <h3>Equipamento</h3><p class="note">As roupas do corpo; um cajado; o que precisar para a Malícia Arcana; uma adaga, se quiser; livros sobre a Elipse; um bornal (1 Escambo); o seu Lith encoleirado.</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico, nobre, famoso, notório ou bem-relacionado).</p>
+      <h3>Sexo</h3><p class="note">Quando você e outro personagem têm intimidade, ambos podem Sussurrar à Elipse como se tirassem 10+ (o custo em Estresse e Medo permanece).</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Você me acha sábio e ancião · Você me viu fazer coisas grandiosas e terríveis com meu poder · Você quer ser como eu, talvez mais do que admite.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Venda seu poder arcano por um preço a alguém rico ou importante · Ameace ou coaja alguém poderoso com sua magia · Revele a extensão do seu poder a quem pode cobiçá-lo ou odiá-lo.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Têmpera (máx +3) · +1 Versúcia (máx +2) · +1 Dissímulo (máx +3) · novo movimento de Adepto · movimento de outra classe · um Patrono (rola Arcano) · 2ª opção da 1ª lista da Malícia Arcana · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · criar PC adicional · movimento de Fim de Temporada · mudar de classe · 3ª opção da Malícia Arcana.</p>
+    </div>
+    <h2>Movimentos</h2>
+    <div class="move sig"><span class="mn"><span class="star">&#9733;</span> Manejar a Elipse</span><span class="atr">Arcano</span><p>Assinatura. Tente dobrar o mundo num detalhe tangível. Num acerto, muda algo pequeno. No 7-9, o Mestre ganha 1 Medo e escolhe: a Elipse sabe o que você faz e por quê; pede algo menor; exige um gesto de lealdade. Conjurar custa 1 Estresse.</p></div>
+    <div class="move"><span class="mn">Malícia Arcana</span><span class="atr">Arcano</span><p>Fere com a Elipse: role Arcano no lugar de Ímpeto para Combater/Ameaçar com magia. Base 1 dano, <span class="tag">de aether</span> <span class="tag">conspícuo</span>. Escolha 2: <span class="tag">poderoso</span> (+1 dano) · <span class="tag">silencioso</span> · <span class="tag">alcance</span> · <span class="tag">perfura armadura</span> · <span class="tag">abala</span> (1 Estresse no alvo). E 1: <span class="tag">sujo</span> · <span class="tag">perto</span> · <span class="tag">ruidoso</span> · <span class="tag">custa caro</span> (1 Estresse ou 1 dano por uso). Sem tags conflitantes. Cada uso: 1 Estresse + 1 Medo.</p></div>
+    <div class="move"><span class="mn">Correr com a Magia</span><span class="atr">Arcano</span><p>+1 Arcano (máx +3).</p></div>
+    <div class="move"><span class="mn">Demanda Onírica</span><span class="atr">Arcano</span><p>Quer algo a qualquer custo: role Arcano; cai inconsciente e comunga com a Elipse em sonhos. 1 Estresse. 10+: caminho claro, +1 contínuo. 7-9: pesadelos, +1 adiante. 6&#8722;: acorda com o desejo torcido e o Mestre escolhe o preço (e ganha 1 Medo).</p></div>
+    <div class="move"><span class="mn">Só um Velho Tolo…</span><span class="atr">Arcano</span><p>Use Arcano no lugar de Versúcia para Persuadir com Alavanca.</p></div>
+    <div class="move"><span class="mn">Poder, Poder Horrível</span><span class="atr">Arcano</span><p>Domina um elemento (pedra, planta, ar, fogo, água, metal, ilusão, feras ou os mortos; nunca luz nem comida). Acerto: Reserva 1 para dobrá-lo. 7-9: o Mestre escolhe — controle fraco, errático, ou exaustivo (1 Estresse). 1 Estresse + 1 Medo.</p></div>
+    <div class="move"><span class="mn">Conselheiro Arcano</span><span class="atr">Arcano</span><p>Aconselha via ritual; 1 Estresse. 10+: quem segue tem boa fortuna (+1 adiante, se PC). 7-9: idem, mas o Mestre segura 1 Medo para uma desgraça depois. 6&#8722;: a Elipse se ofende em ser usada por ninharias humanas.</p></div>
+    <div class="move"><span class="mn">Rasgar a Realidade</span><span class="atr">Têmpera</span><p>Abre e mantém um portal para mover pessoa/objeto; 1 Estresse. Pessoa: 10+ os 3 (lugar exato · na hora · sem o desgaste); 7-9 escolha 2; falha, não abre ou algo dá muito errado. Objeto: 10+ os 2, 7-9 escolha 1.</p></div>
+    <h2>O Lith Encoleirado</h2>
+    <p class="note">Seu objeto mágico é um Lith contido. Escolha 2 dons: vê à distância (1x/sessão Estudar uma Situação ausente) · vê dentro dos corações (1x/sessão Estudar uma Pessoa fora de vista) · mascara a realidade (planta uma mentira plausível) · torna promessas vinculantes · interpõe-se ao caos (absorve uma falha). E 1 preço: cobra sangue (1 Dano por uso) · te odeia (Persuadir com Alavanca contra ele) · exige preparo demorado · exige destruir coisas valiosas · atrai algo horrível (rola Têmpera para não ser notado).</p>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Tomo Vivo</strong></td><td class="num">6</td><td class="num">+1</td><td class="num">0</td><td class="num">+1</td><td class="num">+2</td><td>—</td></tr>
+      <tr><td><strong>O Erudito Encoleirado</strong></td><td class="num">8</td><td class="num">0</td><td class="num">+1</td><td class="num">0</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>O Fidalgo Arcano</strong></td><td class="num">8</td><td class="num">+2</td><td class="num">+1</td><td class="num">+1</td><td class="num">0</td><td>Dissímulo +1</td></tr>
+      <tr><td><strong>O Vaso da Elipse</strong></td><td class="num">10</td><td class="num">0</td><td class="num">+2</td><td class="num">0</td><td class="num">+1</td><td>Têmpera +1</td></tr></table>
+    <p class="note">Experiências: Coleira de osso · Línguas proibidas · Eco arcano.</p>
+  </section>
+
+  <!-- ===== AMADO ===== -->
+  <section id="amado" class="tab">
+    <h1 class="classhead">O Amado</h1><p class="classsub">amado pela Elipse</p>
+    <p class="open">Os deuses sorriem para você — ou ao menos algo sorri. Enquanto outros tentam domar a Elipse, você a sente fluir dentro de si. Enquanto outros tentam compreendê-la, você a conhece, e ela conhece você. Você comunga diferente com ela: é como um amante, um amigo, um rival, um inimigo, e o seu próprio coração pulsante e sangrento diante de você. Alguns adoram o Poder, outros o temem, mas você… você é amado por ele. Agora, como fará aquela voz — aquela voz linda que soa como tanto trovão e mel na sua mente — ecoar por este mundo?</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo humilde, belo, sedutor: Senhora, Petra, Diga, Resgate, Nós, Ocaso, Ardósia, Cicatriz, Silêncio, Crepúsculo, Serena.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① Têmpera 0 · Ímpeto &#8722;1 · Versúcia +2 · Dissímulo 0 · <strong>Arcano +2</strong><br>② Têmpera +1 · Ímpeto &#8722;2 · Versúcia +1 · Dissímulo +1 · <strong>Arcano +2</strong><br>③ Têmpera 0 · Ímpeto 0 · Versúcia +1 · Dissímulo 0 · <strong>Arcano +2</strong><br>④ Têmpera +1 · Ímpeto &#8722;2 · Versúcia 0 · Dissímulo +2 · <strong>Arcano +2</strong></p>
+      <h3>Equipamento</h3><p class="note">Um cajado (1 dano, perto); um bornal (1 Escambo); as roupas do corpo; um pequeno item sagrado ou importante. E só. Você não é de posses mundanas.</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico, nobre, famoso, notório ou bem-relacionado).</p>
+      <h3>Sexo</h3><p class="note">Se têm intimidade, você compartilha a Elipse: Reserva 1. Gaste a qualquer momento para que o outro espalhe conhecimento, medo ou adoração dela (escolha dele).</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Você me ouviu falar do meu amor por ela e se comoveu · Eu te escutei quando ninguém mais o faria · Você me encontrou e me teme. E teme a ela.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Tome Dano de bom grado em nome das suas crenças · Ridicularize publicamente as autoridades deste mundo · Denuncie abertamente alguém poderoso como inimigo dela.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Versúcia (máx +3) · +1 Dissímulo (máx +3) · +1 Arcano (máx +3) · novo movimento de Amado · movimento de outra classe · um Patrono (rola Arcano) · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe.</p>
+    </div>
+    <h2>Movimentos</h2>
+    <div class="move sig"><span class="mn"><span class="star">&#9733;</span> Manejar a Elipse</span><span class="atr">Arcano</span><p>Assinatura. Dobra o mundo num detalhe. No 7-9 o Mestre ganha 1 Medo e cobra algo. Conjurar custa 1 Estresse.</p></div>
+    <div class="move"><span class="mn">Não Tremo Diante Dela</span><span class="atr">Arcano</span><p>Role Arcano no lugar de Têmpera para Encarar a Provação.</p></div>
+    <div class="move"><span class="mn">Ela Me Protege</span><span class="atr">—</span><p>Sem armadura, mas com vestes ou símbolo sagrado: +1 Armadura. Executando os ritos (cânticos, preces): +2 Armadura.</p></div>
+    <div class="move"><span class="mn">Ela Te Conhece</span><span class="atr">Arcano</span><p>Confronta os demônios internos de um NPC; 1 Estresse. Vencendo-os, escolha: livra do medo · faz esquecer um mal · move ao perdão · enche de misericórdia. 10+ permanente, 7-9 desbota, 6&#8722; os demônios se soltam (+1 Medo).</p></div>
+    <div class="move"><span class="mn">Ela Está em Toda Parte</span><span class="atr">Arcano</span><p>Clama por ajuda na batalha; 1 Estresse. 10+ Reserva 2, 7-9 Reserva 1: tira um NPC da luta · protege alguém · ignora o Dano de um ataque · compele um espectador. 6&#8722;: &#8722;1 adiante no combate.</p></div>
+    <div class="move"><span class="mn">Ela Exige Sangue</span><span class="atr">—</span><p>1x/sessão: prece + sacrifício ritual. Animal +1, humano +2, humano amado +3. 10+ Reserva 3, 7-9 Reserva 2: +1 numa rolagem ligada · Sussurrar à Elipse como 10+ · ignorar consequência de falha. Sempre dá 1+ Medo; os mortos lembram.</p></div>
+    <div class="move"><span class="mn">Ela Vive em Mim</span><span class="atr">—</span><p>Marque 4 de Dano e pare ao mundo algo inominável: um NPC monstruoso (2 dano, 1 Armadura, sujo, perto). Escolha 2+1 traços. Você fica em frangalhos.</p></div>
+    <div class="move"><span class="mn">Pregador</span><span class="atr">Versúcia</span><p>1x/sessão, fala suas crenças a uma multidão. Acerto, escolha 1: ofertam bens (+1 Escambo) · viram pequena milícia · confessam segredos. 7-9 o Mestre escolhe um revés.</p></div>
+    <div class="move"><span class="mn">Juntos, Como Um</span><span class="atr">Versúcia</span><p>Você tem 10-15 Seguidores (culto, família-modelo, párias). Fartura padrão: 1 Escambo; Carência: deserção. Escolha traços. Início de sessão, role Versúcia pela Fartura.</p></div>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Devoto Frágil</strong></td><td class="num">6</td><td class="num">+1</td><td class="num">0</td><td class="num">+1</td><td class="num">+2</td><td>—</td></tr>
+      <tr><td><strong>O Mártir</strong></td><td class="num">10</td><td class="num">0</td><td class="num">+2</td><td class="num">0</td><td class="num">+1</td><td>Têmpera +1</td></tr>
+      <tr><td><strong>O Pregador Inflamado</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>O Vaso Sagrado</strong></td><td class="num">8</td><td class="num">0</td><td class="num">+1</td><td class="num">+2</td><td class="num">+1</td><td>Versúcia +1</td></tr></table>
+    <p class="note">Experiências: A voz que comove · Mártir · Comunhão. <em>Lembre: a Igreja de Tha pode reverenciá-lo como sinal sem saber o que ele realmente comunga.</em></p>
+  </section>
+
+  <!-- ===== CAPUZ NEGRO ===== -->
+  <section id="capuz" class="tab">
+    <h1 class="classhead">O Capuz Negro</h1><p class="classsub">já está bem atrás de você</p>
+    <p class="open">Enquanto alguns se atiram com arrogância contra muralhas, ou se demoram nos mistérios sombrios do universo para eliminar seus inimigos, outros ficam nas sombras e adotam uma abordagem mais elegante. Afinal, se gente de má reputação está disposta a se desfazer de boa moeda por uma morte limpa aqui e ali, por que não ser você a encher a bolsa, certo? Então, se você é uma dessas pessoas sem sorte — as que têm algo que alguém quer, ou aquelas cuja boca alguém precisa calar —, lamento dizer, mas provavelmente já é tarde demais. O Capuz Negro já está bem atrás de você…</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo misterioso, sutil, sombrio: Grendel, Horus, Frenza, Lucy, Metal, Ulster, Y, Pena, Espectro, Umbra, Chuva, Sombra, Legião, Pluma.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① <strong>Têmpera +2</strong> · Ímpeto +1 · Versúcia 0 · Dissímulo +1 · Arcano &#8722;1<br>② <strong>Têmpera +2</strong> · Ímpeto 0 · Versúcia &#8722;1 · Dissímulo +2 · Arcano 0<br>③ <strong>Têmpera +2</strong> · Ímpeto +1 · Versúcia &#8722;1 · Dissímulo 0 · Arcano +1<br>④ <strong>Têmpera +2</strong> · Ímpeto +1 · Versúcia +1 · Dissímulo +1 · Arcano &#8722;2</p>
+      <h3>Equipamento</h3><p class="note">Uma capa negra com capuz; couro (1 Armadura); 1 arma de curto alcance (adaga); 1 de longo (facas de arremesso/besta); as ferramentas do ofício (gazuas, garrote); itens pessoais (1 Escambo).</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico/nobre/famoso/notório/bem-relacionado).</p>
+      <h3>Patrono</h3><p class="note">Quase certamente você tem um — provavelmente uma guilda ou sociedade secreta. Rola Têmpera no início da sessão.</p>
+      <h3>Sexo</h3><p class="note">Pode agir como se tirasse 10+ em "O Que é Meu é Meu" com quem teve intimidade, mesmo sem o movimento (NPCs: também "Olhos Que Não Se Abrem").</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Fiz algo terrível por você · Tenho você na palma da mão · Eu te assusto, só um pouquinho.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Furte algo valioso de alguém poderoso · Espalhe boatos sobre seus feitos como Capuz Negro para crescer a lenda · Assassine um inimigo para melhorar sua situação.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Dissímulo (máx +3) · +1 Ímpeto (máx +2) · +1 Versúcia (máx +3) · novo movimento de Capuz Negro · movimento de outra classe · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe.</p>
+    </div>
+    <h2>Movimentos <span class="note">(escolha 2)</span></h2>
+    <div class="move"><span class="mn">Como uma Sombra na Escuridão</span><span class="atr">Têmpera</span><p>Sendo caçado/buscado, some. 10+ escolha 2, 7-9 escolha 1: perseguidores se expõem · confundem outro com você · se distraem · você acha algo útil. 6&#8722; atrai atenção indesejada.</p></div>
+    <div class="move"><span class="mn">Olho de Gavião</span><span class="atr">Têmpera</span><p>+1 Têmpera (máx +3).</p></div>
+    <div class="move"><span class="mn">Só uma Indigestão…</span><span class="atr">Dissímulo</span><p>Envenena uma vítima; gasta 1 Escambo. 10+ as 3 qualidades (tempo exato · parece outra causa · Dano exato 1-4, perfura armadura), 7-9 escolha 2. A vítima fica doente por dias se não morrer. 6&#8722; pega 1 e o Mestre 1-2 reveses.</p></div>
+    <div class="move"><span class="mn">Que Teia Emaranhada</span><span class="atr">Versúcia</span><p>1x/sessão, +1 numa rolagem onde você mente, engana ou trapaceia. Verdade você não sabe direito.</p></div>
+    <div class="move"><span class="mn">Artista da Fuga</span><span class="atr">Têmpera</span><p>Escapa de amarras/cela/jaula. Acerto sai; 7-9 escolha 1 revés (deixou algo · notam logo · podem rastrear · esbarra em alguém inconveniente). 6&#8722; você escolhe: não sai, ou sai e o Mestre pega 2.</p></div>
+    <div class="move"><span class="mn">O Que é Meu é Meu (e o Seu Também)</span><span class="atr">Têmpera</span><p>Furta um bem. NPC: 10+ "que coisa minha é essa no meu bolso?" 7-9 pega com 1 problema, ou não pega sem problema. PC: 10+ o alvo escolhe 2 dos sinais, 7-9 os 3. 6&#8722; não pega e foi visto.</p></div>
+    <div class="move"><span class="mn">Olhos Que Não Se Abrem</span><span class="atr">Têmpera</span><p>1x/sessão, sequestra/mata um NPC ao alcance, em silêncio. 10+ escolha 2, 7-9 1: limpo e quieto · exatamente como planejou · sem deixar rastro (ou deixa um cartão). 6&#8722; falha e é visto.</p></div>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>A Sombra</strong></td><td class="num">8</td><td class="num">+2</td><td class="num">+1</td><td class="num">+2</td><td class="num">+2</td><td>Dissímulo +1</td></tr>
+      <tr><td><strong>O Punhal nas Costas</strong></td><td class="num">6</td><td class="num">+3</td><td class="num">0</td><td class="num">+1</td><td class="num">+2</td><td>Dissímulo +1</td></tr>
+      <tr><td><strong>O Fantasma</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">+1</td><td class="num">+2</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>O Caçador Paciente</strong></td><td class="num">10</td><td class="num">+2</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>Têmpera +1</td></tr></table>
+    <p class="note">Experiências: Sombra viva · Mão leve · Bote silencioso.</p>
+  </section>
+
+  <!-- ===== SANGRADOR ===== -->
+  <section id="sangrador" class="tab">
+    <h1 class="classhead">O Sangrador</h1><p class="classsub">todo aquele sangue maravilhoso</p>
+    <p class="open">Quando você era criança, era diferente, não era? Queria desmontar as coisas e ver o que as fazia funcionar. Ratos, cães, coelhos, o que suas mãozinhas alcançassem. Aprende-se muito sobre como um corpo funciona fazendo isso. Muito sobre como consertar o que está quebrado. Muito sobre o que é segurar uma vida nas mãos. E, acima de tudo, muito sobre todo aquele sangue maravilhoso, maravilhoso.</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo nobre, gentil, altivo: Alain, Santo, Doc, Amor, Grall, Trilho, Alanna, Pílula, Pound, Cordeiro, Corda, Sasha, Niall.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① <strong>Têmpera +2</strong> · Ímpeto 0 · Versúcia &#8722;1 · Dissímulo +1 · Arcano +1<br>② <strong>Têmpera +2</strong> · Ímpeto 0 · Versúcia &#8722;2 · Dissímulo +2 · Arcano +1<br>③ <strong>Têmpera +2</strong> · Ímpeto &#8722;1 · Versúcia 0 · Dissímulo +1 · Arcano +1<br>④ <strong>Têmpera +2</strong> · Ímpeto +1 · Versúcia +1 · Dissímulo 0 · Arcano &#8722;1</p>
+      <h3>Equipamento</h3><p class="note">Sua bolsa de curandeiro; sua enfermaria; uma lâmina pequena (1 dano, na mão); 1 Escambo; alguma armadura (1 Armadura), talvez um avental de couro grosso.</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico/nobre/famoso/notório/bem-relacionado).</p>
+      <h3>Patrono</h3><p class="note">Pode ter um (médico da corte de Tha, de um barão do minério...). Pode ser outro PC. Rola Têmpera.</p>
+      <h3>Sexo</h3><p class="note">Reserva 1; gaste para +1 numa rolagem de Curandeiro, Diagnóstico ou Toque de Cura com quem teve intimidade.</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Éramos amigos quando jovens · Eu te ajudei quando ninguém mais o faria · Você precisa de mim para manter alguém vivo.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Cure alguém poderoso por um preço · Recuse ajuda para avançar seus interesses · Ajude alguém, mesmo em seu prejuízo.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Ímpeto (máx +2) · +1 Dissímulo (máx +3) · +1 Arcano (máx +3) · novo movimento de Sangrador · movimento de outra classe · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe.</p>
+    </div>
+    <h2>Movimentos</h2>
+    <div class="move sig"><span class="mn"><span class="star">&#9733;</span> Curandeiro</span><span class="atr">Têmpera</span><p>Assinatura. Com a bolsa/enfermaria, faz cirurgia. 10+ cura 2; 7-9 cura 1 mas infecciona (o Mestre Reserva 1 para complicar). Gasta suprimentos (1 Escambo a cada 2 usos). Pode fazer 1 pergunta de Estudar uma Pessoa.</p></div>
+    <div class="move"><span class="mn">Diagnóstico</span><span class="atr">Dissímulo</span><p>Examina alguém. Acerto: sabe o mal e a cura; 10+ já tem a ferramenta certa. +1 contínuo agindo sobre o diagnóstico.</p></div>
+    <div class="move"><span class="mn">Foco Intenso</span><span class="atr">Têmpera</span><p>+1 Têmpera (máx +3).</p></div>
+    <div class="move"><span class="mn">Sangue por Sangue</span><span class="atr">Arcano</span><p>Sacrifica um NPC para salvar um moribundo por meios que mortais não compreendem. 10+ o NPC morre e o alvo fica pleno. 7-9 alvo cura 3. 6&#8722; alvo cura 1 e o NPC vira algo entre a vida e a morte. 1 Estresse + 1 Medo.</p></div>
+    <div class="move"><span class="mn">Coletor de Almas</span><span class="atr">Arcano</span><p>Quem morre nos seus cuidados te dá +1 Arcano (máx +3). Quem você mata com Sangue por Sangue conta.</p></div>
+    <div class="move"><span class="mn">Complexo de Deus</span><span class="atr">Têmpera</span><p>Algo terrível e milagroso (melhorar a vida, reanimar, implantar). O Mestre impõe 1-2 condições; cumpridas, role Têmpera na enfermaria. Acerto: muda o alvo permanentemente. 10+ escolha 1 bônus. 6&#8722; você faz uma carnificina.</p></div>
+    <div class="move"><span class="mn">Toque de Cura</span><span class="atr">Arcano</span><p>1x/sessão, canaliza a Elipse para curar. 10+ cura 2. 7-9 cura 1 e você Sussurra à Elipse como falha. 6&#8722; falha e nada cura. 1 Estresse + 1 Medo.</p></div>
+    <h2>Bolsa &amp; Enfermaria</h2>
+    <p class="note">A bolsa tem bisturis, medicina, ervas, serra, sanguessugas. A cada 2 usos de um movimento que exija bolsa/enfermaria, gaste 1 Escambo para repor. Na enfermaria (sem ameaça imediata), +1 (máx +3) em movimentos de Sangrador.</p>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Cirurgião Frio</strong></td><td class="num">8</td><td class="num">+2</td><td class="num">+1</td><td class="num">+1</td><td class="num">0</td><td>Dissímulo +1</td></tr>
+      <tr><td><strong>O Açougueiro</strong></td><td class="num">10</td><td class="num">+1</td><td class="num">+2</td><td class="num">0</td><td class="num">0</td><td>Têmpera +1</td></tr>
+      <tr><td><strong>O Médico Cauteloso</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>O Coletor</strong></td><td class="num">6</td><td class="num">+1</td><td class="num">0</td><td class="num">+1</td><td class="num">+2</td><td>Arcano +1</td></tr></table>
+    <p class="note">Experiências: Anatomia profana · Mãos firmes · Sangue por sangue.</p>
+  </section>
+
+  <!-- ===== COROA ===== -->
+  <section id="coroa" class="tab">
+    <h1 class="classhead">A Coroa</h1><p class="classsub">alguém tem que usar a coroa</p>
+    <p class="open">A terra está coberta de coisas horríveis, horríveis. Florestas medonhas com cipós que te matam e habitantes que farão muito, muito pior. Hereges nas montanhas que roem seus ossos no jantar. Criaturas imundas capazes de esmagar um reino sob os pés tão facilmente quanto a maioria mija num penico. E isso é só o que há fora das muralhas. Aqui dentro, no que chamamos de civilização, não é muito melhor. Alguém tem que manter toda essa bagunça em ordem. Não uma ordem amistosa, necessariamente, mas ordem ainda assim. Alguém tem que usar a coroa. Pode muito bem ser você.</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo poderoso, régio, glorioso: Halbrook, Generosa, Anna, Guardião, Rex, Han, Verona, Mãe, Felícito, Thorstein, Veyal, Pai, Punho, Amana.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① Têmpera &#8722;1 · <strong>Ímpeto +2</strong> · Versúcia +1 · Dissímulo +1 · Arcano 0<br>② Têmpera +1 · <strong>Ímpeto +2</strong> · Versúcia +1 · Dissímulo +1 · Arcano &#8722;2<br>③ Têmpera &#8722;1 · <strong>Ímpeto +2</strong> · Versúcia 0 · Dissímulo +2 · Arcano 0<br>④ Têmpera 0 · <strong>Ímpeto +2</strong> · Versúcia +1 · Dissímulo &#8722;1 · Arcano +1</p>
+      <h3>Equipamento</h3><p class="note">Praticamente o que quiser, dentro do razoável, e 2 Escambo em mãos. Você é a Coroa. Quem vai dizer não?</p>
+      <h3>Honra</h3><p class="note">Você começa com 2. Todos sabem o seu nome.</p>
+      <h3>Sexo</h3><p class="note">Quem tem intimidade com você ganha 1 Escambo em presentes (PC). NPC: você pede ou convence algo como se tivesse Persuadido com Alavanca a 10+.</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Você me vê como um grande e sábio governante · Você me vê como uma chance de vida melhor · Você teme que eu saiba das coisas que você apronta.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Dê uma ordem a um rival ou súdito insubordinado para humilhá-lo · Tome mais poder, por mais mesquinho que seja · Confie a alguém querido segredos que ele não deveria saber.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Dissímulo (máx +3) · +1 Versúcia (máx +3) · +1 Têmpera (máx +2) · novo movimento de Coroa · movimento de outra classe · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe.</p>
+    </div>
+    <h2>Movimentos</h2>
+    <div class="move sig"><span class="mn"><span class="star">&#9733;</span> Pesado é a Cabeça</span><span class="atr">Ímpeto</span><p>Assinatura. Você governa um Feudo. Escolha um símbolo de autoridade. Por padrão é médio: Fartura (+1 Escambo, laborioso), Carência (faminto), exército +0 Militar (médio, sem treino). Escolha 3 (porte, trabalho, exército) e 2 problemas. Início de sessão, role Ímpeto: 10+ toda a Fartura; 7-9 Fartura mas o Mestre ativa 1 Carência; 6&#8722; em Carência total.</p></div>
+    <div class="move"><span class="mn">Punho de Ferro</span><span class="atr">Ímpeto</span><p>+1 Ímpeto (máx +3).</p></div>
+    <div class="move"><span class="mn">Recompensa</span><span class="atr">Ímpeto</span><p>Põe a palavra de que quer algo/alguém. 10+ aparece, sem perguntas. 7-9 escolha: chega algo próximo sem amarras, ou o certo com amarras. 6&#8722; sabem onde está, mas vai dar trabalho, e notaram que você procura.</p></div>
+    <div class="move"><span class="mn">Comandante da Guarda</span><span class="atr">Militar</span><p>Comanda o exército em batalha; role +Militar. 10+ escolha 3, 7-9 escolha 2: vence · poucas baixas · misericórdia (prisioneiros) · alguém sai ileso. 6&#8722; escolha 1, e espere problema.</p></div>
+    <div class="move"><span class="mn">De Omeletes e Ovos</span><span class="atr">Ímpeto</span><p>1x/sessão, ao falhar, antes das consequências, role Ímpeto para sacrificar um súdito e absorver sua falha. 10+ ele se voluntaria; 7-9 você o obriga e o Mestre escolhe um efeito colateral; 6&#8722; ninguém ajuda e a falha vale.</p></div>
+    <h2>O Feudo</h2>
+    <p class="note">Porte, símbolo, Fartura/Carência, e um exército (Militar) com tags. No Sol Negro, a pira sagrada é infraestrutura: manter o fogo aceso é tabu e dever. "Carência: faminto" casa com a escassez de Raiz-de-Prata e combustível.</p>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Punho de Ferro</strong></td><td class="num">10</td><td class="num">+2</td><td class="num">+2</td><td class="num">0</td><td class="num">0</td><td>Ímpeto +1</td></tr>
+      <tr><td><strong>O Estrategista</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>O Soberano Blindado</strong></td><td class="num">12</td><td class="num">0</td><td class="num">+3</td><td class="num">0</td><td class="num">0</td><td>Têmpera +1</td></tr>
+      <tr><td><strong>O Déspota Ágil</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">0</td><td class="num">+2</td><td class="num">+2</td><td>Dissímulo +1</td></tr></table>
+    <p class="note">Experiências: Sangue real · Voz de comando · Jogo do trono.</p>
+  </section>
+
+  <!-- ===== MANOPLA ===== -->
+  <section id="manopla" class="tab">
+    <h1 class="classhead">A Manopla</h1><p class="classsub">a espada por moeda</p>
+    <p class="open">Todos nós precisamos trabalhar pelo nosso pão. Alguns assam pão. Alguns cantam canções. Alguns governam cidades de suas cadeirinhas confortáveis. Você? Você enfia espadas em gente, enquanto o ouro continuar reluzindo. Talvez você seja leal ao seu patrão — diabos, talvez ela seja sua própria irmã. Ou talvez sua lealdade seja só à moeda. Você mutilou, roubou e matou, e provavelmente fez algum bem pelo caminho também, umas poucas vezes. Talvez essas poucas vezes tenham mexido com você, e uma consciência esteja começando a crescer. Talvez. Ou talvez o dinheiro seja bom demais para se preocupar com isso, ainda mais quando todo mundo daqui até o oceano ou quer te contratar ou quer te enforcar — e alguns por bons motivos.</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo rude, forte, sensível: Bastardo, Punho, Igreja, M, Chute, Quinn, Ossa, Pandy, Sena, Sarn, Urso, Illa, Olho-de-Corvo, Ninguém, Lâmina.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① Têmpera +1 · <strong>Ímpeto +2</strong> · Versúcia 0 · Dissímulo 0 · Arcano 0<br>② Têmpera +1 · <strong>Ímpeto +2</strong> · Versúcia &#8722;2 · Dissímulo +1 · Arcano +1<br>③ Têmpera +1 · <strong>Ímpeto +2</strong> · Versúcia 0 · Dissímulo +1 · Arcano &#8722;1<br>④ <strong>Têmpera +2</strong> · <strong>Ímpeto +2</strong> · Versúcia &#8722;1 · Dissímulo 0 · Arcano 0</p>
+      <h3>Equipamento</h3><p class="note">Sua arma-assinatura; 1-2 armas comuns; armadura (1 ou 2 Armadura); seu Cartão de Visita; 1 Escambo.</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico/nobre/famoso/notório/bem-relacionado).</p>
+      <h3>Patrono</h3><p class="note">Quase certamente seu Lorde (pode ser outro PC). A Manopla é uma arma — que pertence a outro. Rola Ímpeto.</p>
+      <h3>Sexo</h3><p class="note">Reserva 1; gaste a qualquer momento para surgir, pronto para o combate, quando quem teve intimidade com você estiver em perigo.</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Fiz o certo por você quando não precisava · Você me viu cumprir uma ameaça merecida · Você me traiu uma vez e sofreu minha ira.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Desafie publicamente alguém durão por honra · Venda seu aço a alguém importante além do Patrono · Intimide gente comum a mando de alguém poderoso.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Dissímulo (máx +2) · +1 Têmpera (máx +3) · +1 Versúcia (máx +2) · novo movimento de Manopla · movimento de outra classe · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe.</p>
+    </div>
+    <h2>Movimentos <span class="note">(escolha 2)</span></h2>
+    <div class="move"><span class="mn">Temível</span><span class="atr">Ímpeto</span><p>+1 Ímpeto (máx +3).</p></div>
+    <div class="move"><span class="mn">Mande um Exército</span><span class="atr">—</span><p>Em combate você conta como pequena Milícia: sem penalidade contra milícia pequena; médias e grandes contam como uma a menos contra você.</p></div>
+    <div class="move"><span class="mn">Como Cão Raivoso Solto</span><span class="atr">Ímpeto</span><p>Numa missão de violência que te deram. 10+ escolha 2, 7-9 1: usa Ímpeto para Estudar · +2 agindo sobre Estudar · +1 dano relacionado à ordem. 6&#8722; distraído/dividido, &#8722;1 adiante.</p></div>
+    <div class="move"><span class="mn">Tempo Demais nos Campos de Matança</span><span class="atr">Ímpeto</span><p>Sussurra à Elipse rolando Ímpeto no lugar de Arcano. (Ainda 1 Estresse + 1 Medo.)</p></div>
+    <div class="move"><span class="mn">Minhas Dívidas Serão Pagas</span><span class="atr">—</span><p>Quem te deve dinheiro ou favor: +1 contínuo contra ele até quitar.</p></div>
+    <div class="move"><span class="mn">O Cheiro de Sangue e Aço</span><span class="atr">Ímpeto</span><p>Início de sessão, role Ímpeto; acerto Reserva 1 para chegar a uma batalha de verdade. 10+ +1 adiante no 1º movimento. 6&#8722; o Mestre Reserva 1 para te encurralar.</p></div>
+    <div class="move"><span class="mn">Não Ligo pra Dor</span><span class="atr">—</span><p>Ferido feio em combate (2+ Dano após armadura): +1 contínuo o resto da luta.</p></div>
+    <h2>Subsistema</h2>
+    <p class="note"><strong>Arma-assinatura</strong> (base 2 dano; escolha tipo, look e 2 opções: <span class="tag">valioso</span>, <span class="tag">perigoso</span> +1 dano, <span class="tag">pesado</span> +2 dano e sujo, <span class="tag">oculto</span>, <span class="tag">infinito</span>, <span class="tag">inquebrável</span>; dê um nome). <strong>Cartão de Visita</strong> (marca reconhecível). <strong>Último Suspiro</strong> (aos 5 de Dano você pode declarar último combate: +1 dano até 10 de Dano ou o fim da luta — então morre lendário).</p>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Brutamontes</strong></td><td class="num">12</td><td class="num">+2</td><td class="num">+2</td><td class="num">0</td><td class="num">0</td><td>Ímpeto +1</td></tr>
+      <tr><td><strong>O Duelista</strong></td><td class="num">8</td><td class="num">+3</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>Dissímulo +1</td></tr>
+      <tr><td><strong>O Inquebrável</strong></td><td class="num">12</td><td class="num">+1</td><td class="num">+3</td><td class="num">0</td><td class="num">0</td><td>Têmpera +1</td></tr>
+      <tr><td><strong>O Caçador Veloz</strong></td><td class="num">10</td><td class="num">+2</td><td class="num">+1</td><td class="num">+1</td><td class="num">+2</td><td>—</td></tr></table>
+    <p class="note">Experiências: Arma-irmã · Veterano dos campos · Último suspiro.</p>
+  </section>
+
+  <!-- ===== BRUXA ===== -->
+  <section id="bruxa" class="tab">
+    <h1 class="classhead">A Bruxa</h1><p class="classsub">há destinos piores que a morte</p>
+    <p class="open">Lá no brejo, ou talvez sob um castelo. Talvez a melhor amiga de alguém, uma conselheira da Coroa, ou até uma dignitária estrangeira. Seja quem for, a Bruxa cavalga o caos e o poder da Elipse, voltando-os a seus próprios fins e artifícios. Só não falhe em honrar um trato com ela — ou você pode descobrir que há destinos piores que a morte.</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo enrugado, visceral, sedutor: Gerdy, Velma, Bruma, Padrão, Titia, Brejo, Anciã, Wevery, Chander, Gox, Tal, Rev, Dentelonga.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① Têmpera +1 · Ímpeto &#8722;1 · Versúcia 0 · Dissímulo +1 · <strong>Arcano +2</strong><br>② Têmpera +1 · Ímpeto 0 · Versúcia &#8722;1 · Dissímulo +1 · <strong>Arcano +2</strong><br>③ Têmpera &#8722;1 · Ímpeto +1 · Versúcia &#8722;1 · Dissímulo +2 · <strong>Arcano +2</strong><br>④ <strong>Têmpera +2</strong> · Ímpeto 0 · Versúcia &#8722;2 · Dissímulo +1 · <strong>Arcano +2</strong></p>
+      <h3>Equipamento</h3><p class="note">As roupas do corpo; um cajado ou adaga, se quiser; algumas poções; uma coleção de coisas alheias; livros sobre a Elipse; um bornal (1 Escambo).</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico/nobre/famoso/notório/bem-relacionado).</p>
+      <h3>Sexo</h3><p class="note">Reserva 1; gaste para usar "A Mais Bela de Todas" e imitar quem teve intimidade como se tirasse 10+, mesmo sem o movimento.</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Você me acha útil e poderosa · Eu tenho algo que é seu · Você quer algo de mim.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Traia alguém poderoso que confia em você · Elimine alguém inconveniente com sua magia · Cresça sua infâmia com uma exibição pública de poder.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Têmpera (máx +3) · +1 Dissímulo (máx +3) · +1 Versúcia (máx +2) · novo movimento de Bruxa · movimento de outra classe · um Patrono (rola Arcano) · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe · um segundo Familiar.</p>
+    </div>
+    <h2>Movimentos</h2>
+    <div class="move sig"><span class="mn"><span class="star">&#9733;</span> Manejar a Elipse</span><span class="atr">Arcano</span><p>Assinatura. Dobra o mundo num detalhe. No 7-9 o Mestre ganha 1 Medo e cobra algo. Conjurar custa 1 Estresse.</p></div>
+    <div class="move"><span class="mn">Moloch</span><span class="atr">Arcano</span><p>Amaldiçoa alguém segurando um objeto dele. 10+ tag "maldito" com 2 marcas, 7-9 com 1; cada cena +1 marca. Aos 3, Reserva 1 para interferir (PC, como 10+) ou afligir (NPC). 1 Estresse + 1 Medo. Some-se: você morre, você remove, perde o objeto, ou cumpre-se o requisito que você fixou.</p></div>
+    <div class="move"><span class="mn">Colheita Sombria</span><span class="atr">—</span><p>Devora o coração de um inimigo: Reserva 1 para acertar automático um movimento básico em que ele era bom.</p></div>
+    <div class="move"><span class="mn">Sábia nos Caminhos</span><span class="atr">Arcano</span><p>+1 Arcano (máx +3).</p></div>
+    <div class="move"><span class="mn">A Mais Bela de Todas</span><span class="atr">Arcano</span><p>Com um pedaço físico de alguém, imita sua aparência. 10+ perfeito por um tempo; 7-9 o Mestre esconde um defeito (voz, cheiro, andar, perspectiva). Perdeu o pedaço, quebra na hora. 1 Estresse + 1 Medo.</p></div>
+    <div class="move"><span class="mn">A Aposta do Diabo</span><span class="atr">—</span><p>Faz um trato: o outro te dá um pedaço de si (um ano de vida, memórias...). Aprisiona num objeto; quem o destrói acerta um movimento como 10+. Quebrar o trato dá +1 contínuo ao lesado.</p></div>
+    <div class="move"><span class="mn">Dobrar o Osso</span><span class="atr">Arcano</span><p>1x/sessão, transforma um NPC presente em animal/criatura (curto). 7-9 o Mestre escolhe a falha parcial. 6&#8722; a magia volta (1 Estresse, ou você vira a criatura). 1 Estresse + 1 Medo.</p></div>
+    <div class="move"><span class="mn">Icor Negro</span><span class="atr">—</span><p>Ferida sua suja borrifa o sangue-demônio (2 dano, perfura armadura, corrosivo); PCs por perto Encaram a Provação.</p></div>
+    <div class="move"><span class="mn">Quebrar as Costas</span><span class="atr">Arcano</span><p>Sofre Dano direto, role Arcano. 10+ Reserva 1 para devolver o mesmo Dano depois, à distância. 7-9 idem &#8722;1 dano. 6&#8722; o alvo ganha 1 sobre você. 1x por cena por personagem.</p></div>
+    <h2>Subsistema</h2>
+    <p class="note"><strong>Familiar</strong> (bicho leal; você vê/ouve por ele; se morre, 2 dano perfura armadura + novo ritual). <strong>Marca da Bruxa</strong> (sinal que delata o que você faz). <em>Lembre: os Lith vivem entre humanos enganando — uma Bruxa pode SER um Lith disfarçado, e a Marca aqui é literal.</em></p>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>A Megera Frágil</strong></td><td class="num">6</td><td class="num">+1</td><td class="num">0</td><td class="num">+1</td><td class="num">+2</td><td>—</td></tr>
+      <tr><td><strong>A Pele Corrosiva</strong></td><td class="num">8</td><td class="num">0</td><td class="num">+2</td><td class="num">0</td><td class="num">+1</td><td>Têmpera +1</td></tr>
+      <tr><td><strong>A Maldiçoadora</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>A Bela Falsa</strong></td><td class="num">8</td><td class="num">+2</td><td class="num">+1</td><td class="num">+2</td><td class="num">0</td><td>Dissímulo +1</td></tr></table>
+    <p class="note">Experiências: Maldição amarrada · Familiar · Pele emprestada.</p>
+  </section>
+
+  <!-- ===== LIRA ===== -->
+  <section id="lira" class="tab">
+    <h1 class="classhead">A Lira</h1><p class="classsub">a verdade dita ao poder</p>
+    <p class="open">Nunca conseguiu criar raízes, conseguiu? Simplesmente começou a vagar pela terra, cantando suas canções, contando suas histórias, soltando suas piadas. Alguns diriam que você tem sorte. Afinal, você não tem responsabilidades, tem uma vida de viagem e aventura, e o privilégio de dizer a verdade ao poder. Mas alguém vai te defender quando esse poder se cansar de ouvir a sua verdade? Quão bonita será essa sua voz, eu me pergunto, quando estiver sendo estrangulada no seu lindo pescoço…?</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo bonito, sensual, exótico: Pássaro-Cantor, Horácio, Prado, Pinho, Ce'ana, Língua, Olhos-Azuis, Maxilar, Roda, Caneca, Zolar, Queda-d'Estrela.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① Têmpera +1 · Ímpeto &#8722;1 · <strong>Versúcia +2</strong> · Dissímulo 0 · Arcano +1<br>② Têmpera &#8722;1 · Ímpeto 0 · <strong>Versúcia +2</strong> · Dissímulo +2 · Arcano 0<br>③ Têmpera +1 · Ímpeto &#8722;2 · <strong>Versúcia +2</strong> · Dissímulo +1 · Arcano +1<br>④ Têmpera 0 · Ímpeto +1 · <strong>Versúcia +2</strong> · Dissímulo 0 · Arcano 0</p>
+      <h3>Equipamento</h3><p class="note">As ferramentas do ofício (instrumento, cartas, maquiagem, fantoches); 1 Escambo; as roupas do corpo; uma arma confiável de no máximo 2 dano.</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico/nobre/famoso/notório/bem-relacionado).</p>
+      <h3>Patrono</h3><p class="note">Você bem pode ter um (um nobre que financia a arte). Pode ser um PC. Rola Versúcia.</p>
+      <h3>Sexo</h3><p class="note">Escolha 1: significou pouco para você e muito para o outro (+1 adiante, PC) · você se inspira (+1 adiante no próximo movimento de Lira) · complica (faça "Encantada, Eu Garanto", mesmo sem o movimento).</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Eu vou e volto muito; você sente minha falta · Você e eu? Nós nos entendemos · Você faria qualquer coisa para estar comigo.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Apresente seus talentos em privado a alguém poderoso · Encante alguém poderoso por informação útil · Zombe publicamente dos poderosos onde todos ouçam.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Dissímulo (máx +3) · +1 Arcano (máx +2) · +1 Têmpera (máx +2) · novo movimento de Lira · movimento de outra classe · um 2º Patrono · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe.</p>
+    </div>
+    <h2>Movimentos <span class="note">(escolha 2)</span></h2>
+    <div class="move"><span class="mn">Vox Populi</span><span class="atr">Versúcia</span><p>Inflama uma multidão (não a milícia/seguidores de um PC). 10+ 3, 7-9 2: converte-os a um ponto de vista · agem como pequena milícia em sua defesa · aponta a ira deles · não te identificam. 6&#8722; a multidão se volta contra você.</p></div>
+    <div class="move"><span class="mn">Vidente</span><span class="atr">Arcano</span><p>Vê o futuro de um NPC. 10+ vislumbra de fato (via Elipse) um evento nebuloso, e você não precisa ser sincero. 7-9 não vê nada, mas tece mentiras convincentes. 6&#8722; não convence. 1 Estresse.</p></div>
+    <div class="move"><span class="mn">Sou o Melhor no Que Faço</span><span class="atr">Versúcia</span><p>+1 Versúcia (máx +3).</p></div>
+    <div class="move"><span class="mn">Ladina</span><span class="atr">Versúcia</span><p>Quando seus talentos ajudam (furtar, atletismo, disfarce), role Versúcia no lugar de Têmpera para Encarar a Provação.</p></div>
+    <div class="move"><span class="mn">Uma Canção no Coração</span><span class="atr">Versúcia</span><p>Atua diante de plateia. 10+ Reserva 2, 7-9 1: nomeia alguém da plateia que — precisa me conhecer · tem trabalho pra mim · me ama · me dá info · admira meu Patrono · quer me contratar. 6&#8722; algo te distrai.</p></div>
+    <div class="move"><span class="mn">Encantada, Eu Garanto</span><span class="atr">Versúcia</span><p>Tempo a sós trabalhando o charme. 10+ o alvo Reserva 3, 7-9 2; gasta para te servir (dar algo, ser seus olhos, te proteger, fazer o que você quer). Enquanto tem Reserva, não age contra você. 6&#8722; você também fica fixado.</p></div>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Trovador Ágil</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">0</td><td class="num">+2</td><td class="num">+2</td><td>Versúcia +1</td></tr>
+      <tr><td><strong>O Espadachim Elegante</strong></td><td class="num">8</td><td class="num">+2</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>Dissímulo +1</td></tr>
+      <tr><td><strong>O Artista</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>O Sedutor</strong></td><td class="num">6</td><td class="num">+1</td><td class="num">0</td><td class="num">+2</td><td class="num">+1</td><td>Versúcia +1</td></tr></table>
+    <p class="note">Experiências: Palco é meu · Língua de prata · Boato bem-plantado.</p>
+  </section>
+
+  <!-- ===== ALGOZ ===== -->
+  <section id="algoz" class="tab">
+    <h1 class="classhead">O Algoz</h1><p class="classsub">girando o torno</p>
+    <p class="open">A informação é valiosa num mundo perigoso, e você sabe como obtê-la — mesmo quando as pessoas nem sempre estão muito dispostas a abrir mão dela. Volta e meia perguntam, em voz alta, como você faz. Talvez você converse com elas de um jeito muito especial? Ou faça cócegas nos pés até não aguentarem mais? Quem estamos enganando: todos sabemos o que você faz. Você fica girando o torno até elas apunhalarem a própria mãe pra você parar. É só mais um dia de trabalho — desde que você consiga o que precisa.</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo pequeno, sombrio, pontiagudo: Estrangula, Bico, Twill, Pousio, Sebastião, Helena, Quero, Bonita, Sorte, Globo-Ocular, Branco, Eu, Noite, Gregor.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① Têmpera +1 · Ímpeto 0 · Versúcia +1 · <strong>Dissímulo +2</strong> · Arcano &#8722;1<br>② Têmpera +1 · Ímpeto 0 · Versúcia &#8722;1 · <strong>Dissímulo +2</strong> · Arcano +1<br>③ Têmpera 0 · Ímpeto 0 · Versúcia 0 · <strong>Dissímulo +2</strong> · Arcano +1<br>④ Têmpera +1 · Ímpeto &#8722;1 · Versúcia +1 · <strong>Dissímulo +2</strong> · Arcano 0</p>
+      <h3>Equipamento</h3><p class="note">1 Escambo; as roupas do corpo; sua sacola de truques (ver Causar Dor); uma arma defensiva pequena que caiba na sacola.</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico/nobre/famoso/notório/bem-relacionado).</p>
+      <h3>Patrono</h3><p class="note">Pode ter um (paga você por informação útil). Pode ser PC. Rola Dissímulo. Sem Patrono, vende ao maior lance.</p>
+      <h3>Sexo</h3><p class="note">Quando têm intimidade, você pode fazer 1 pergunta de "Por Favor?".</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Eu te causei dor, e você nunca quer sentir aquilo de novo · Sei um segredo seu que você jamais quer que saia · Você acha que eu não machucaria uma mosca.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Venda informação por um preço a alguém perigoso · Machuque alguém a mando de uma pessoa importante · Entregue-se a um prazer secreto com outro.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Dissímulo (máx +3) · +1 Versúcia (máx +2) · +1 Têmpera (máx +3) · novo movimento de Algoz · movimento de outra classe · um 2º Patrono · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe · a 3ª opção de Causar Dor.</p>
+    </div>
+    <h2>Movimentos</h2>
+    <div class="move sig"><span class="mn"><span class="star">&#9733;</span> Por Favor?</span><span class="atr">Dissímulo</span><p>Assinatura. Com alguém à sua mercê, causa dor para arrancar confissão. 10+ pergunte 3, 7-9 2: como ele (ou quem ama) é vulnerável · a quem trairia · do que tem mais medo · em quem confia/ama · que segredo guarda · o que o incriminaria. Quem agir sobre a info ganha +1 adiante. 6&#8722; pergunta 1, mas ele pode te perguntar o mesmo.</p></div>
+    <div class="move"><span class="mn">Uma Máquina Maravilhosa, o Corpo</span><span class="atr">Dissímulo</span><p>Role Dissímulo no lugar de Ímpeto para Ameaçar com Força/Combater. Você sabe como as peças se encaixam.</p></div>
+    <div class="move"><span class="mn">E Se Eu Disser Que o Céu é Vermelho?</span><span class="atr">Dissímulo</span><p>Causa dor para forçar um NPC. 10+ escolha 2, 7-9 1: diz o que você quer · faz uma ação · sem marcas visíveis · não conta a ninguém.</p></div>
+    <div class="move"><span class="mn">Portador da Morte</span><span class="atr">Arcano</span><p>Toca pele a pele para causar Dano sobrenatural. 10+ 2 dano (perfura armadura) + 1 adiante; 7-9 1 dano. 6&#8722; a Elipse vira contra você (1 dano nele, 1 em você + arremessado). 1 Estresse + 1 Medo.</p></div>
+    <div class="move"><span class="mn">Conheço Você Melhor Que Você</span><span class="atr">—</span><p>+1 adiante para Persuadir/Estudar um alvo depois de ter causado qualquer Dano nele.</p></div>
+    <div class="move"><span class="mn">Esse é Seu Melhor?</span><span class="atr">Têmpera</span><p>1x/sessão, ao sofrer Dano direto, role Têmpera. 10+ escolha 2, 7-9 1: +1 adiante · 1 pergunta Por Favor · Sussurrar à Elipse como 10+. 6&#8722; &#8722;1 contínuo até revidar.</p></div>
+    <div class="move"><span class="mn">Uma Libra de Carne</span><span class="atr">—</span><p>Ao causar Dano, Reserva 1: depois, interfere numa rolagem (PC, como 10+) ou causa 1 Estresse extra (NPC).</p></div>
+    <h2>Causar Dor</h2>
+    <p class="note">Causa 1-2 dano (perfura armadura) por sessão de trabalho; 1 Escambo a cada 2 usos. Escolha 2 de 3: dois ajudantes (rola Dissímulo para agarrar um NPC) · uma sala sem vista · suprimento infinito de ferramentas (nunca gasta Escambo).</p>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Frio Cirúrgico</strong></td><td class="num">8</td><td class="num">+3</td><td class="num">+1</td><td class="num">+1</td><td class="num">0</td><td>Dissímulo +1</td></tr>
+      <tr><td><strong>O Carrasco</strong></td><td class="num">10</td><td class="num">+2</td><td class="num">+2</td><td class="num">0</td><td class="num">0</td><td>Têmpera +1</td></tr>
+      <tr><td><strong>O Interrogador</strong></td><td class="num">8</td><td class="num">+2</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>O Sombrio</strong></td><td class="num">6</td><td class="num">+2</td><td class="num">0</td><td class="num">+1</td><td class="num">+2</td><td>Dissímulo +1</td></tr></table>
+    <p class="note">Experiências: A dor fala · Sala sem vista · Frieza cirúrgica.</p>
+  </section>
+
+  <!-- ===== ESPORA ===== -->
+  <section id="espora" class="tab">
+    <h1 class="classhead">A Espora</h1><p class="classsub">vá em frente, dê a ordem</p>
+    <p class="open">Você tem um bando de bastardos gananciosos e famintos a cavalo às suas costas, e uma pequena e indefesa propriedade rural no horizonte. Sua tropa espera você dizer o que fazer. "Certo" e "errado" são as palavras mais vazias do mundo quando é você quem comanda todo aquele músculo e aço. Vá em frente. Dê a ordem…</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo rude, severo, predatório: Réquiem, Tambor, Mangual, Estrela, Casa, T, Yessta, Falcão, Trovão, Remy, Chefe, Maça, Torre, Ela.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① Têmpera +1 · <strong>Ímpeto +2</strong> · Versúcia &#8722;1 · Dissímulo +1 · Arcano 0<br>② Têmpera +1 · <strong>Ímpeto +2</strong> · Versúcia +1 · Dissímulo 0 · Arcano &#8722;1<br>③ Têmpera 0 · <strong>Ímpeto +2</strong> · Versúcia +1 · Dissímulo +1 · Arcano &#8722;1<br>④ <strong>Têmpera +2</strong> · <strong>Ímpeto +2</strong> · Versúcia 0 · Dissímulo &#8722;1 · Arcano 0</p>
+      <h3>Equipamento</h3><p class="note">Seu cavalo; armadura (1 ou 2 Armadura); duas armas (uma corpo a corpo, uma à distância); equipamento de montaria e acampamento; 1 Escambo.</p>
+      <h3>Honra</h3><p class="note">1 (+1 se rico/nobre/famoso/notório/bem-relacionado).</p>
+      <h3>Patrono</h3><p class="note">Pode ter um, seu Lorde (capitão da guarda de alguém, etc.). Rola Ímpeto. Sem Patrono, você e a Milícia são mercenários ou bandidos.</p>
+      <h3>Sexo</h3><p class="note">Reserva 1; gaste para compelir quem teve intimidade a dar apoio, cobertura ou recursos à sua Milícia (PC resiste com Recusar Obrigação).</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Você me viu mostrar misericórdia quando era merecida · Você sonhou em cavalgar com a minha Milícia · Você me viu intimidar alguém mais fraco.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Venda o poder da sua Milícia por um preço alto · Ameace alguém poderoso com uma briga sem pesar as consequências · Ofereça misericórdia a alguém, ainda que pareça fraqueza.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Dissímulo (máx +2) · +1 Versúcia (máx +2) · +1 Têmpera (máx +3) · novo movimento de Espora · movimento de outra classe · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe.</p>
+    </div>
+    <h2>Movimentos</h2>
+    <div class="move sig"><span class="mn"><span class="star">&#9733;</span> Líder do Bando</span><span class="atr">Ímpeto</span><p>Assinatura. Você lidera uma Milícia (~20 brutos a cavalo): 2 dano, 1 Armadura, pequena, Carência: indisciplina. Escolha traços de Fartura/Carência. Início de sessão, role Ímpeto: 10+ toda a Fartura; 7-9 com 1 Carência ativada; 6&#8722; em Carência. Também: ao dar ordem difícil, role Ímpeto (10+ os 3, 7-9 escolha 2).</p></div>
+    <div class="move"><span class="mn">Forjado em Aço</span><span class="atr">Ímpeto</span><p>+1 Ímpeto (máx +3).</p></div>
+    <div class="move"><span class="mn">Tático</span><span class="atr">Ímpeto</span><p>Role Ímpeto no lugar de Dissímulo para Estudar uma Situação.</p></div>
+    <div class="move"><span class="mn">Destemido</span><span class="atr">—</span><p>Se carrega ao perigo sem hesitar: +1 Armadura (e a Milícia também, se liderada).</p></div>
+    <div class="move"><span class="mn">Conosco ou Contra Nós</span><span class="atr">Ímpeto</span><p>Comunga com a Milícia antes do combate. 10+ ela luta um tamanho acima; 7-9 idem, mas o Mestre pode ativar uma Carência depois. 6&#8722; dividida: &#8722;1 adiante e o Mestre ativa uma Carência.</p></div>
+    <div class="move"><span class="mn">Mais Montanha Que Mortal</span><span class="atr">—</span><p>&#8722;2 em todas as rolagens de Sofrer Dano. Difícil te derrubar.</p></div>
+    <div class="move"><span class="mn">Eu Gaguejei?</span><span class="atr">Ímpeto</span><p>Dá ordem direta a um NPC menor/mais fraco. Acerto: obedece rápido. 10+ escolha 1 (+1 adiante · um favor futuro). 6&#8722; o Mestre escolhe 1-2 reveses.</p></div>
+    <h2>Subsistema</h2>
+    <p class="note"><strong>Milícia</strong> (com Fartura/Carência). <strong>Cavalo</strong> (nome, look, força: rápido/resistente/agressivo/duro; fraqueza: lento/arisco/instável/fraco). Os Agrios são inteligentes e impulsivos — uma Espora que cace Agrios nas estradas é puro Sol Negro.</p>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Cavaleiro de Ferro</strong></td><td class="num">12</td><td class="num">+2</td><td class="num">+2</td><td class="num">0</td><td class="num">+1</td><td>Ímpeto +1</td></tr>
+      <tr><td><strong>O Imóvel</strong></td><td class="num">12</td><td class="num">+1</td><td class="num">+3</td><td class="num">0</td><td class="num">0</td><td>Têmpera +1</td></tr>
+      <tr><td><strong>O Tático</strong></td><td class="num">10</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td class="num">+2</td><td>—</td></tr>
+      <tr><td><strong>A Carga</strong></td><td class="num">10</td><td class="num">+2</td><td class="num">+1</td><td class="num">+1</td><td class="num">+2</td><td>Ímpeto +1</td></tr></table>
+    <p class="note">Experiências: Rédea de ferro · Couraça do bando · Carga implacável.</p>
+  </section>
+
+  <!-- ===== VOZ ===== -->
+  <section id="voz" class="tab">
+    <h1 class="classhead">A Voz</h1><p class="classsub">um ouvido pronto para escutar</p>
+    <p class="open">Você sempre dá um jeito de se ver à beira das coisas importantes: ali, sentado ao lado do trono, observando a batalha confortavelmente de uma tenda, ou talvez sussurrando para servos amedrontados em algum corredor obscuro. Você gosta da influência que vem de ter a atenção de gente com poder e autoridade, ou só gosta de assistir a tudo arder do conforto de uma torre distante? Talvez um dia você queira estar bem no centro de tudo, sentado naquele trono ou na linha de frente daquela guerra. Mas o mais provável é que você só goste de pôr os pequenos uns contra os outros e vê-los rasgar o mundo em pedaços. De um jeito ou de outro, tudo de que você precisa é de um ouvido ou dois, prontos para escutar…</p>
+    <div class="card">
+      <h3>Nomes</h3><p class="note">Algo manso, humilde, convidativo: Pax, Issma, Cobra, Amigável, Tio, Tia, Savina, Vela, Pássaro, Sujeito, Brado, Geada, Boneca, Wort.</p>
+      <h3>Atributos (escolha 1)</h3><p class="note">① Têmpera +1 · Ímpeto 0 · <strong>Versúcia +2</strong> · Dissímulo +1 · Arcano &#8722;1<br>② Têmpera 0 · Ímpeto 0 · <strong>Versúcia +2</strong> · Dissímulo 0 · Arcano +1<br>③ Têmpera 0 · Ímpeto &#8722;1 · <strong>Versúcia +2</strong> · Dissímulo +1 · Arcano +1<br>④ Têmpera +1 · Ímpeto &#8722;2 · <strong>Versúcia +2</strong> · Dissímulo +2 · Arcano 0</p>
+      <h3>Equipamento</h3><p class="note">Algumas roupas; 1 Escambo; uma carta de uma pessoa importante; uma adaga ou arma pequena. E só. Nunca se sabe quando é preciso sair depressa.</p>
+      <h3>Honra</h3><p class="note">Você conhece todo mundo que importa. Começa com 2.</p>
+      <h3>Patrono</h3><p class="note">Você absolutamente tem um — a Voz não é nada sem ouvido que a escute. Pode ser PC. Rola Versúcia.</p>
+      <h3>Desejo</h3><p class="note">Escolha uma obsessão: aquele alguém especial e azarado · vingança · o trono (não qualquer um — o trono) · agradar alguém específico · riquezas incontáveis. Ao alcançá-lo, cinco minutos de êxtase; depois, escolha um novo.</p>
+      <h3>Sexo</h3><p class="note">Reserva 1; gaste para agir como 10+ em "Sussurrar Trevas" ou "Um Ouvido em Cada Porta" com quem teve intimidade, mesmo sem o movimento.</p>
+      <h3>Relações (escolha 2)</h3><p class="note">Você seguiu meu conselho e se deu bem · Você e eu temos uma parceriazinha · Ouvi boatos sobre você que você não quer que saiam.</p>
+      <h3>Entrelaçamentos</h3><p class="note">Passe adiante o segredo de alguém para se beneficiar · Traia alguém que confia em você · Minta, descaradamente, a alguém poderoso, mesmo sob risco.</p>
+      <h3>Avanço · Tier Um</h3><p class="note">+1 Dissímulo (máx +3) · +1 Têmpera (máx +3) · +1 Arcano (máx +2) · novo movimento de Voz · movimento de outra classe · um novo ou 2º Patrono · 4º Entrelaçamento.</p>
+      <h3>Tier Dois</h3><p class="note">Avançar 3 básicos · os outros 4 · PC adicional · Fim de Temporada · mudar de classe.</p>
+    </div>
+    <h2>Movimentos</h2>
+    <div class="move sig"><span class="mn"><span class="star">&#9733;</span> Sussurrar Trevas</span><span class="atr">Versúcia</span><p>Assinatura. Sussurra conselho no ouvido de alguém. NPC: 10+ escolha 2 (convence a favor/contra alguém · mostra solução · desvia atenção · faz esquecer algo · faz desistir de um objetivo); 7-9 escolha 1 + o Mestre escolhe uma consequência. PC: 10+ Reserva 2 para dar ponto de avanço quando ele faz o que você aprova.</p></div>
+    <div class="move"><span class="mn">Palavras Como Seda</span><span class="atr">Versúcia</span><p>+1 Versúcia (máx +3).</p></div>
+    <div class="move"><span class="mn">Um Ouvido em Cada Porta</span><span class="atr">Versúcia</span><p>Quer saber como alguém anda (mesmo ausente). 10+ pergunte 3, 7-9 1: o que o ocupa · com quem anda · quem ama/confia · quando o verei · que metas tem · como o deixo feliz/irado/triste. +1 adiante usando a info para miná-lo. 6&#8722; seu interesse não passou despercebido.</p></div>
+    <div class="move"><span class="mn">Pulso da Multidão</span><span class="atr">Dissímulo</span><p>Examina um grupo/multidão. 10+ 3 perguntas, 7-9 2: quem é dominante · qual o humor · líderes/párias · o que apaziguaria/enfureceria · que palavras os movem · onde estão suas lealdades. +1 adiante usando a info.</p></div>
+    <div class="move"><span class="mn">Como Peças num Tabuleiro</span><span class="atr">Versúcia</span><p>Espalha boatos pelas redes. 10+ escolha 2, 7-9 1: fulano ouve o que você quer · fulano não ouve nada · impossível rastrear até você. 6&#8722; o boato espalha mas você perde o controle e podem te rastrear.</p></div>
+    <div class="move"><span class="mn">De Repente Lembrei Que Tenho Onde Estar…</span><span class="atr">Têmpera</span><p>Tenta sair às pressas. Acerto: some sem ser visto. 10+ escolha 3, 7-9 1: ninguém nota sua ausência por um tempo · ninguém sabe aonde foi · não esbarra em quem não quer · não perde nada importante. 6&#8722; é óbvio que você foge.</p></div>
+    <h2>Combate</h2>
+    <table class="ctab"><tr><th>Array</th><th>Sangue</th><th>Tino</th><th>Cal</th><th>Graça</th><th>Celere</th><th>Pré-req</th></tr>
+      <tr><td><strong>O Conspirador Frágil</strong></td><td class="num">6</td><td class="num">+1</td><td class="num">0</td><td class="num">+1</td><td class="num">+2</td><td>—</td></tr>
+      <tr><td><strong>O Cortesão Cauteloso</strong></td><td class="num">8</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>—</td></tr>
+      <tr><td><strong>O Elusivo</strong></td><td class="num">6</td><td class="num">+1</td><td class="num">0</td><td class="num">+2</td><td class="num">+2</td><td>Versúcia +1</td></tr>
+      <tr><td><strong>O Punhal Discreto</strong></td><td class="num">8</td><td class="num">+2</td><td class="num">+1</td><td class="num">+1</td><td class="num">+1</td><td>Dissímulo +1</td></tr></table>
+    <p class="note">Experiências: Ouvido em cada porta · Sussurro venenoso · Saída discreta.</p>
+  </section>
+
+  <div class="foot">&#948;&#953;&#39; &#7936;&#955;&#955;&#959;&#964;&#961;&#943;&#959;&#965; &#945;&#7989;&#956;&#945;&#964;&#959;&#962; &#7940;&#961;&#967;&#969; · Darkest Sun — A Era de Lilith · protótipo de mesa</div>
+</div>
+
+<script>
+  function show(id, btn){
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.tabbtn').forEach(function(b){ b.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    var nav=document.getElementById('nav');
+    if(nav){ nav.scrollTo({ left: btn.offsetLeft - nav.clientWidth/2 + btn.clientWidth/2, behavior:'smooth' }); }
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
